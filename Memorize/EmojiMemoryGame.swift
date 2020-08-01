@@ -21,7 +21,9 @@ class EmojiMemoryGame {
         let emojis = ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼",
                       "🐨","🐯","🐮","🐽","🐸","🐵","🐔","🐧",
                       "🐦","🐤","🦆","🐥","🦉","🐴","🐝","🐛"]
-        return MemoryGame<Emoji>(numberOfPairOfCards: emojis.count) { pairIndex in
+        let randomNumberOfPairs = Int.random(in: 2...5)
+
+        return MemoryGame<Emoji>(numberOfPairOfCards: randomNumberOfPairs) { pairIndex in
             return emojis[pairIndex]
         }
     }
