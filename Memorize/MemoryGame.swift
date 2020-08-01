@@ -13,8 +13,20 @@ struct MemoryGame<CardContent> {
     
     var cards: Array<Card>
     
-    func choose(card: Card) {
+    mutating func choose(card: Card) {
         print("Card chosen is: \(card)")
+        let idx = index(of: card)
+        cards[idx].isFaceUp = !cards[idx].isFaceUp
+    }
+    
+    func index(of card: Card) -> Int {
+        // TODO: Find a better method to find elements in the array?
+        for idx in 0..<cards.count {
+            if cards[idx].id == card.id {
+                return idx
+            }
+        }
+        return 0 // TODO: Fix this return value (optionals)
     }
     
     init(numberOfPairOfCards: Int, makeCardContent: (Int) -> CardContent) {
@@ -28,7 +40,7 @@ struct MemoryGame<CardContent> {
     }
     
     struct Card: Identifiable {
-        var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
         var isMatched: Bool = false
         var content: CardContent
         var id: Int
