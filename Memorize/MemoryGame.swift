@@ -15,20 +15,10 @@ struct MemoryGame<CardContent> {
     
     mutating func choose(card: Card) {
         print("Card chosen is: \(card)")
-        let idx = index(of: card)
+        let idx = cards.firstIndex(matching: card)
         cards[idx].isFaceUp = !cards[idx].isFaceUp
     }
-    
-    func index(of card: Card) -> Int {
-        // TODO: Find a better method to find elements in the array?
-        for idx in 0..<cards.count {
-            if cards[idx].id == card.id {
-                return idx
-            }
-        }
-        return 0 // TODO: Fix this return value (optionals)
-    }
-    
+        
     init(numberOfPairOfCards: Int, makeCardContent: (Int) -> CardContent) {
         cards = Array<Card>()
         for pairIndex in 0..<numberOfPairOfCards {
