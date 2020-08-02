@@ -1,5 +1,5 @@
 //
-//  GridViewBuilder.swift
+//  Grid.swift
 //  Memorize
 //
 //  Created by Allan Garcia on 02/08/2020.
@@ -31,9 +31,10 @@ struct Grid<Item, itemView>: View where Item: Identifiable, itemView: View {
     }
     
     func body(for item: Item, in layout: GridLayout) -> some View {
-        let index = items.firstIndex(matching: item)
+        let index = items.firstIndex(matching: item)!
         return viewForItem(item)
-            .frame(width: layout.itemSize.width, height: layout.itemSize.height)
+            .frame(width: layout.itemSize.width,
+                   height: layout.itemSize.height)
             .position(layout.location(ofItemAt: index))
     }
     
