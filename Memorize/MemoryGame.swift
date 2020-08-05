@@ -11,6 +11,8 @@ import Foundation
 // Model wrapper
 struct MemoryGame<CardContent> where CardContent: Equatable {
     
+    var score: Int = 0
+    
     var cards: Array<Card>
     
     var indexOnlyFaceUpCard: Int? {
@@ -42,6 +44,9 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 if cards[matchingIndex].content == cards[alreadyFaceUpCardIndex].content {
                     cards[matchingIndex].isMatched = true
                     cards[alreadyFaceUpCardIndex].isMatched = true
+                    score += 2
+                } else {
+                    score -= 1
                 }
                 cards[matchingIndex].isFaceUp = true
             } else {
