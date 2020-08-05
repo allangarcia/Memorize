@@ -12,6 +12,13 @@ import Foundation
 struct MemoryGame<CardContent> where CardContent: Equatable {
     
     var score: Int = 0
+
+    // Extra Credit - Timely score
+    var timeOfTheLastChoose: Date = Date()
+    // Extra Credit - Timely score
+    var secondsSinceLastChoose: Int {
+        abs(Int(self.timeOfTheLastChoose.timeIntervalSinceNow))
+    }
     
     var cards: Array<Card>
     
@@ -37,12 +44,17 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     
     mutating func choose(card: Card) {
         // print("Card chosen is: \(card)")
-        if let matchingIndex = cards.firstIndex(matching: card), !cards[matchingIndex].isFaceUp, !cards[matchingIndex].isMatched {
+        if let matchingIndex = cards.firstIndex(matching: card),
+            !cards[matchingIndex].isFaceUp,
+            !cards[matchingIndex].isMatched {
+            
             if let alreadyFaceUpCardIndex = indexOnlyFaceUpCard {
                 if cards[matchingIndex].content == cards[alreadyFaceUpCardIndex].content {
                     cards[matchingIndex].isMatched = true
                     cards[alreadyFaceUpCardIndex].isMatched = true
-                    score += 2
+                    // score += 2
+                    score += 2 * max(10 - secondsSinceLastChoose, 1) // Extra Credit - Timely score
+                    self.timeOfTheLastChoose = Date() // Extra Credit - Timely score
                 } else {
                     /*
                      The logic is:
@@ -55,7 +67,9 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                     let cardsFiltered = cards.filter { $0.wasSeen && !$0.isMatched }
                     for card in cardsFiltered {
                         if card.content == cards[alreadyFaceUpCardIndex].content || card.content == cards[matchingIndex].content {
-                            score -= 1
+                            // score -= 1
+                            score -= 1 * min(1 + secondsSinceLastChoose, 10) // Extra Credit - Timely score
+                            self.timeOfTheLastChoose = Date() // Extra Credit - Timely score
                         }
                     }
                     cards[alreadyFaceUpCardIndex].wasSeen = true

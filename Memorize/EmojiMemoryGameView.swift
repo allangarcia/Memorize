@@ -29,13 +29,14 @@ struct EmojiMemoryGameView: View {
             }
             .padding()
             .foregroundColor(viewModel.theme.color)
+            .accentColor(viewModel.theme.color)
             Divider()
             HStack {
                 Text("Score: \(viewModel.score)").font(Font.headline)
                 Spacer()
                 Button(action: viewModel.newGame) { Text("New Game") }
             }
-        .padding()
+            .padding()
         }
     }
     
@@ -59,7 +60,17 @@ struct CardView: View {
                 Text(card.content)
             } else {
                 if !card.isMatched {
-                    RoundedRectangle(cornerRadius: cornerRadius).fill()
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(
+                            LinearGradient(gradient:
+                                Gradient(colors:
+                                    [Color.accentColor.opacity(0.8),
+                                     Color.accentColor.opacity(0.2)]
+                                ),
+                                           startPoint: .top,
+                                           endPoint: .bottom
+                            )
+                    )
                 }
             }
         }
