@@ -8,89 +8,72 @@
 
 import SwiftUI
 
-struct EmojiSet {
-    
-    enum Theme {
-        case animal, halloween, insect, profession, transport, informatic
-    }
-    
-    init(withTheme theme: Theme) {
-        // init with chosen theme
-        self.theme = theme
-        
-        switch theme {
-        case .animal:
-            self.emojis = ["🐶","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🐮",
-                           "🐸","🐵","🐔","🐧","🐦","🐤","🦆","🐥","🦉","🐴"]
-            self.themeName = "Animals"
-            self.themeColor = Color.blue
-        case .halloween:
-            self.emojis = ["⚰️","👻","💀","☠️","🎃","🧟‍♂️","🧛🏻‍♂️","🦇","🕷","🕸",
-                           "🔪","⚰️","🏺","🧹"]
-            self.themeName = "Halloween"
-            self.themeColor = Color.orange
-            self.numberOfPairsToShow = 4
-        case .insect:
-            self.emojis = ["🐝","🐛","🐌","🦋","🐞","🐜","🦟","🦗","🦂"]
-            self.themeName = "Insects"
-            self.themeColor = Color.gray
-            self.numberOfPairsToShow = 3
-        case .profession:
-            self.emojis = ["👮🏾‍♀️","👷🏿‍♂️","🕵🏼","🧑🏾‍🌾","👨🏾‍🍳","🧑🏼‍🏫","👨🏻‍🏭","👨🏻‍💻","🧑🏽‍🔬","🧑🏾‍🚒",
-                           "👨🏼‍✈️","👩🏿‍🚀"]
-            self.themeName = "Professions"
-            self.themeColor = Color.pink
-            self.numberOfPairsToShow = 4
-        case .transport:
-            self.emojis = ["🚗","🚕","🚌","🛵","🚲","🚍","🏍","✈️","🚆","🚤"]
-            self.themeName = "Transports"
-            self.themeColor = Color.yellow
-            self.numberOfPairsToShow = 3
-        case .informatic:
-            self.emojis = ["⌚️","📱","💻","🖥","🖨","💽","💾","⌨️","🖲","📠",
-                           "🎙","🖱"]
-            self.themeName = "Informatics"
-            self.themeColor = Color.green
-            self.numberOfPairsToShow = 4
-        }
-    }
-    
-    private(set) var theme: EmojiSet.Theme
-    private(set) var emojis: Array<Emoji>
-    private(set) var themeColor: Color
-    private(set) var themeName: String
-    private(set) var numberOfPairsToShow: Int?
-    
-    /*
-     As I'm not being graded, I believe that my solution is more elegant than
-     the requirement task 5 that require add a new theme with a single line of
-     code. I prefer to extend the struct with new themes to construct a better
-     data structure with type statically allocated than an arbitrary dictionary
-     with all the information to be parsed. But I could change my mind later when
-     Paul Hegarty show their solution.
-     */
-    
-}
-
 // Emoji is just a string, but renamed for clarity
 typealias Emoji = String
 
 // ViewModel
 class EmojiMemoryGame: ObservableObject {
     
+    // Struct for the theme
+    
+    struct Theme {
+        var name: String
+        var emojis: Array<Emoji>
+        var color: Color
+        var numberOfPairs: Int?
+    }
+    
     // Class helper methods and functions
-    static var defaultTheme: EmojiSet.Theme = .halloween
+
+    static var themes: Array<Theme> = {
+        var themes = Array<Theme>()
+        
+        themes.append(Theme(name: "Animals",
+                            emojis: ["🐶","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🐮",
+                                     "🐸","🐵","🐔","🐧","🐦","🐤","🦆","🐥","🦉","🐴"],
+                            color: Color.blue))
+        
+        themes.append(Theme(name: "Halloween",
+                            emojis: ["⚰️","👻","💀","☠️","🎃","🧟‍♂️","🧛🏻‍♂️","🦇","🕷","🕸",
+                                     "🔪","⚰️","🏺","🧹"],
+                            color: Color.orange,
+                            numberOfPairs: 6))
+        
+        themes.append(Theme(name: "Insects",
+                            emojis: ["🐝","🐛","🐌","🦋","🐞","🐜","🦟","🦗","🦂"],
+                            color: Color.gray,
+                            numberOfPairs: 4))
+        
+        themes.append(Theme(name: "Professions",
+                            emojis: ["👮🏾‍♀️","👷🏿‍♂️","🕵🏼","🧑🏾‍🌾","👨🏾‍🍳","🧑🏼‍🏫","👨🏻‍🏭","👨🏻‍💻","🧑🏽‍🔬","🧑🏾‍🚒",
+                                     "👨🏼‍✈️","👩🏿‍🚀"],
+                            color: Color.pink,
+                            numberOfPairs: 6))
+        
+        themes.append(Theme(name: "Transports",
+                            emojis: ["🚗","🚕","🚌","🛵","🚲","🚍","🏍","✈️","🚆","🚤"],
+                            color: Color.yellow,
+                            numberOfPairs: 4))
+        
+        themes.append(Theme(name: "Informatics",
+                            emojis: ["⌚️","📱","💻","🖥","🖨","💽","💾","⌨️","🖲","📠",
+                                     "🎙","🖱"],
+                            color: Color.green,
+                            numberOfPairs: 6))
+        
+        return themes
+    }()
     
     // Model
     @Published private var game: MemoryGame<Emoji>!
     
-    private(set) var emojiSet: EmojiSet
+    private(set) var theme: Theme
     
     func makeMemoryGame() -> MemoryGame<Emoji> {
         
-        let emojis = self.emojiSet.emojis.shuffled() // Extra credit change.
+        let emojis = self.theme.emojis.shuffled()
         
-        let randomNumberOfPairs = self.emojiSet.numberOfPairsToShow ?? Int.random(in: 2...5)
+        let randomNumberOfPairs = self.theme.numberOfPairs ?? Int.random(in: 2...self.theme.emojis.count) // Conformance to hints
         // If theme has its size of pairs set.
         // Otherwise random behaviour
         
@@ -99,13 +82,9 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
     
-    init(withTheme theme: EmojiSet.Theme) {
-        self.emojiSet = EmojiSet(withTheme: theme)
+    init() {
+        self.theme = EmojiMemoryGame.themes.randomElement() ?? EmojiMemoryGame.themes[0]
         self.game = self.makeMemoryGame()
-    }
-    
-    convenience init() {
-        self.init(withTheme: EmojiMemoryGame.defaultTheme)
     }
     
     // MARK: - Access to the model
@@ -118,31 +97,17 @@ class EmojiMemoryGame: ObservableObject {
         game.score
     }
     
-    var themeColor: Color {
-        self.emojiSet.themeColor
-    }
-    
-    var themeName: String {
-        self.emojiSet.themeName
-    }
-    
     // MARK: - Intents
     
     func choose(card: MemoryGame<Emoji>.Card) {
         game.choose(card: card)
     }
     
-    func changeTheme(to theme: EmojiSet.Theme) {
-        self.emojiSet = EmojiSet(withTheme: theme)
-        self.game = self.makeMemoryGame()
-    }
-    
     func newGame() {
-        // TODO: - This random stuff probably should be in another function
-        let randomTheme = [.animal,.halloween,.informatic,
-                           .insect,.profession,.transport].randomElement() ?? EmojiSet.Theme.halloween
-        self.emojiSet = EmojiSet(withTheme: randomTheme)
-        self.game = self.makeMemoryGame()
+        if let theme = EmojiMemoryGame.themes.randomElement() {
+            self.theme = theme
+            self.game = self.makeMemoryGame()
+        }
     }
     
 }

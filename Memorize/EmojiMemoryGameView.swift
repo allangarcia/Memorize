@@ -15,9 +15,10 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         Group {
             HStack {
-                Text(viewModel.themeName)
-                    .font(Font.largeTitle)
+                Text(viewModel.theme.name)
+                    .font(Font.title)
             }
+            Divider()
             Grid(viewModel.cards) { card in
                 CardView(card: card)
                     // .aspectRatio(2/3, contentMode: .fit) -- removed due to GridLayout thing
@@ -27,9 +28,10 @@ struct EmojiMemoryGameView: View {
                 .padding(5)
             }
             .padding()
-            .foregroundColor(viewModel.themeColor)
+            .foregroundColor(viewModel.theme.color)
+            Divider()
             HStack {
-                Text("Score: \(viewModel.score)")
+                Text("Score: \(viewModel.score)").font(Font.headline)
                 Spacer()
                 Button(action: viewModel.newGame) { Text("New Game") }
             }

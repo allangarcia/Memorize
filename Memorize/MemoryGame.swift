@@ -37,16 +37,29 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     
     mutating func choose(card: Card) {
         // print("Card chosen is: \(card)")
-        if let matchingIndex = cards.firstIndex(matching: card),
-            !cards[matchingIndex].isFaceUp,
-            !cards[matchingIndex].isMatched {
+        if let matchingIndex = cards.firstIndex(matching: card), !cards[matchingIndex].isFaceUp, !cards[matchingIndex].isMatched {
             if let alreadyFaceUpCardIndex = indexOnlyFaceUpCard {
                 if cards[matchingIndex].content == cards[alreadyFaceUpCardIndex].content {
                     cards[matchingIndex].isMatched = true
                     cards[alreadyFaceUpCardIndex].isMatched = true
                     score += 2
                 } else {
-                    score -= 1
+                    /*
+                     The logic is:
+                     1. I'm only decreacing points after seeing both cards and they not match so
+                        is the else case for the if that actually matches two cards and summup 2 points
+                     2. Then I have to look through all cards that are not yet matched but already seen
+                        and mismatched and compare with the two faceup cards that is not currently being
+                        matched if I found any correspondence then I have to penalize -1 point for each.
+                     */
+                    let cardsFiltered = cards.filter { $0.wasSeen && !$0.isMatched }
+                    for card in cardsFiltered {
+                        if card.content == cards[alreadyFaceUpCardIndex].content || card.content == cards[matchingIndex].content {
+                            score -= 1
+                        }
+                    }
+                    cards[alreadyFaceUpCardIndex].wasSeen = true
+                    cards[matchingIndex].wasSeen = true
                 }
                 cards[matchingIndex].isFaceUp = true
             } else {
@@ -68,6 +81,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     struct Card: Identifiable {
         var isFaceUp: Bool = false
         var isMatched: Bool = false
+        var wasSeen: Bool = false
         var content: CardContent
         var id: Int
     }
