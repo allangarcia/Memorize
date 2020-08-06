@@ -16,6 +16,10 @@ class EmojiMemoryGame: ObservableObject {
     
     // Struct for the theme
     
+    // I'm leaving Theme and themes public (not private)
+    // becouse someone outside this class could create a new
+    // theme for this game and set the array
+    
     struct Theme {
         var name: String
         var emojis: Array<Emoji>
@@ -69,7 +73,7 @@ class EmojiMemoryGame: ObservableObject {
     
     private(set) var theme: Theme
     
-    func makeMemoryGame() -> MemoryGame<Emoji> {
+    private func makeMemoryGame() -> MemoryGame<Emoji> {
         
         let emojis = self.theme.emojis.shuffled()
         

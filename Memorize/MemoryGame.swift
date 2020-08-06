@@ -11,18 +11,18 @@ import Foundation
 // Model wrapper
 struct MemoryGame<CardContent> where CardContent: Equatable {
     
-    var score: Int = 0
+    private(set) var score: Int = 0
 
     // Extra Credit - Timely score
-    var timeOfTheLastChoose: Date = Date()
+    private var timeOfTheLastChoose: Date = Date()
     // Extra Credit - Timely score
-    var secondsSinceLastChoose: Int {
+    private var secondsSinceLastChoose: Int {
         abs(Int(self.timeOfTheLastChoose.timeIntervalSinceNow))
     }
     
-    var cards: Array<Card>
+    private(set) var cards: Array<Card>
     
-    var indexOnlyFaceUpCard: Int? {
+    private var indexOnlyFaceUpCard: Int? {
         get {
             cards.indices.filter { cards[$0].isFaceUp }.only
         }
