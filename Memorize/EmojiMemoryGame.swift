@@ -78,7 +78,7 @@ class EmojiMemoryGame: ObservableObject {
         
         let emojis = self.theme.emojis.shuffled()
         
-        let randomNumberOfPairs = self.theme.numberOfPairs ?? Int.random(in: 2...self.theme.emojis.count) // Conformance to hints
+        let randomNumberOfPairs = self.theme.numberOfPairs // Conformance to hints
         // If theme has its size of pairs set.
         // Otherwise random behaviour
         
