@@ -30,8 +30,8 @@ struct EmojiMemoryGameView: View {
                 .padding(5)
             }
             .padding()
-            .foregroundColor(viewModel.theme.color)
-            .accentColor(viewModel.theme.color)
+            .foregroundColor(Color(viewModel.theme.color))
+            .accentColor(Color(viewModel.theme.color))
             Divider()
             HStack {
                 Text("Score: \(viewModel.score)").font(Font.headline) // TODO: Make this text localizable. LocalizeStringKey?

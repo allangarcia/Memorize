@@ -20,11 +20,30 @@ class EmojiMemoryGame: ObservableObject {
     // becouse someone outside this class could create a new
     // theme for this game and set the array
     
-    struct Theme {
+    struct Theme: Codable {
         var name: String
         var emojis: Array<Emoji>
-        var color: Color
+        var color: UIColor.RGB
         var numberOfPairs: Int
+        
+        var json: Data? {
+            return try? JSONEncoder().encode(self)
+        }
+        
+        init?(json: Data?) {
+            if json != nil, let newTheme = try? JSONDecoder().decode(Theme.self, from: json!) {
+                self = newTheme
+            } else {
+                return nil
+            }
+        }
+        
+        init(name: String, emojis: Array<Emoji>, color: UIColor.RGB, numberOfPairs: Int) {
+            self.name = name
+            self.emojis = emojis
+            self.color = color
+            self.numberOfPairs = numberOfPairs
+        }
     }
     
     // Class helper methods and functions
@@ -35,35 +54,35 @@ class EmojiMemoryGame: ObservableObject {
         themes.append(Theme(name: "Animals",
                             emojis: ["🐶","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🐮",
                                      "🐸","🐵","🐔","🐧","🐦","🐤","🦆","🐥","🦉","🐴"],
-                            color: Color.blue,
+                            color: UIColor.blue.rgb,
                             numberOfPairs: 10))
         
         themes.append(Theme(name: "Halloween",
                             emojis: ["⚰️","👻","💀","☠️","🎃","🧟‍♂️","🧛🏻‍♂️","🦇","🕷","🕸",
                                      "🔪","⚰️","🏺","🧹"],
-                            color: Color.orange,
+                            color: UIColor.orange.rgb,
                             numberOfPairs: 6))
         
         themes.append(Theme(name: "Insects",
                             emojis: ["🐝","🐛","🐌","🦋","🐞","🐜","🦟","🦗","🦂"],
-                            color: Color.gray,
+                            color: UIColor.gray.rgb,
                             numberOfPairs: 4))
         
         themes.append(Theme(name: "Professions",
                             emojis: ["👮🏾‍♀️","👷🏿‍♂️","🕵🏼","🧑🏾‍🌾","👨🏾‍🍳","🧑🏼‍🏫","👨🏻‍🏭","👨🏻‍💻","🧑🏽‍🔬","🧑🏾‍🚒",
                                      "👨🏼‍✈️","👩🏿‍🚀"],
-                            color: Color.pink,
+                            color: UIColor.systemPink.rgb,
                             numberOfPairs: 6))
         
         themes.append(Theme(name: "Transports",
                             emojis: ["🚗","🚕","🚌","🛵","🚲","🚍","🏍","✈️","🚆","🚤"],
-                            color: Color.yellow,
+                            color: UIColor.yellow.rgb,
                             numberOfPairs: 4))
         
         themes.append(Theme(name: "Informatics",
                             emojis: ["⌚️","📱","💻","🖥","🖨","💽","💾","⌨️","🖲","📠",
                                      "🎙","🖱"],
-                            color: Color.green,
+                            color: UIColor.green.rgb,
                             numberOfPairs: 6))
         
         return themes
@@ -90,6 +109,9 @@ class EmojiMemoryGame: ObservableObject {
     init() {
         self.theme = EmojiMemoryGame.themes.randomElement() ?? EmojiMemoryGame.themes[0]
         self.game = self.makeMemoryGame()
+        
+        print("JSON Theme = \(self.theme.json?.utf8 ?? "nil")")
+
     }
     
     // MARK: - Access to the model
@@ -113,6 +135,8 @@ class EmojiMemoryGame: ObservableObject {
         if let theme = EmojiMemoryGame.themes.randomElement() {
             self.theme = theme
             self.game = self.makeMemoryGame()
+            
+            print("JSON Theme = \(self.theme.json?.utf8 ?? "nil")")
         }
     }
     
