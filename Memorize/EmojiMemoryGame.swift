@@ -24,7 +24,7 @@ class EmojiMemoryGame: ObservableObject {
         var name: String
         var emojis: Array<Emoji>
         var color: Color
-        var numberOfPairs: Int?
+        var numberOfPairs: Int
     }
     
     // Class helper methods and functions
@@ -35,7 +35,8 @@ class EmojiMemoryGame: ObservableObject {
         themes.append(Theme(name: "Animals",
                             emojis: ["🐶","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🐮",
                                      "🐸","🐵","🐔","🐧","🐦","🐤","🦆","🐥","🦉","🐴"],
-                            color: Color.blue))
+                            color: Color.blue,
+                            numberOfPairs: 10))
         
         themes.append(Theme(name: "Halloween",
                             emojis: ["⚰️","👻","💀","☠️","🎃","🧟‍♂️","🧛🏻‍♂️","🦇","🕷","🕸",
