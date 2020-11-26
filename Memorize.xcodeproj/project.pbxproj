@@ -57,6 +57,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D87364625702D6B003BFAF3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9DA0A56324D4BD970001C827 /* EmojiMemoryGameView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9D87364825702D8C003BFAF3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9DBB449024D55E4B00CF534D /* MemoryGame.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9D87364925702DA3003BFAF3 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9DBB449224D560EF00CF534D /* EmojiMemoryGame.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		9D87364B25702DC4003BFAF3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9DF61C7124D6BA2E009B786F /* Grid.swift */,
+				9DCEB50124D6C18200F69049 /* GridLayout.swift */,
+				9DCEB50324D6C63100F69049 /* Array+Identifiable.swift */,
+				9DCEB50524D7720000F69049 /* Array+Only.swift */,
+				9D9147F7256604270029DE85 /* Data+UTF8.swift */,
+				9D9147F42565FEFE0029DE85 /* UIColor+RGBA.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		9D87364C25702DF2003BFAF3 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				9DEB86CC24DC987A0098AFE9 /* Cardify.swift */,
+				9DEB86CA24DC7D210098AFE9 /* Pie.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		9DA0A55324D4BD970001C827 = {
 			isa = PBXGroup;
 			children = (
@@ -78,17 +124,11 @@
 			children = (
 				9DA0A55F24D4BD970001C827 /* AppDelegate.swift */,
 				9DA0A56124D4BD970001C827 /* SceneDelegate.swift */,
-				9DA0A56324D4BD970001C827 /* EmojiMemoryGameView.swift */,
-				9DEB86CA24DC7D210098AFE9 /* Pie.swift */,
-				9DEB86CC24DC987A0098AFE9 /* Cardify.swift */,
-				9DF61C7124D6BA2E009B786F /* Grid.swift */,
-				9DCEB50324D6C63100F69049 /* Array+Identifiable.swift */,
-				9DCEB50124D6C18200F69049 /* GridLayout.swift */,
-				9DBB449024D55E4B00CF534D /* MemoryGame.swift */,
-				9DCEB50524D7720000F69049 /* Array+Only.swift */,
-				9DBB449224D560EF00CF534D /* EmojiMemoryGame.swift */,
-				9D9147F7256604270029DE85 /* Data+UTF8.swift */,
-				9D9147F42565FEFE0029DE85 /* UIColor+RGBA.swift */,
+				9D87364825702D8C003BFAF3 /* Model */,
+				9D87364925702DA3003BFAF3 /* ViewModels */,
+				9D87364625702D6B003BFAF3 /* Views */,
+				9D87364B25702DC4003BFAF3 /* Utils */,
+				9D87364C25702DF2003BFAF3 /* ViewModifiers */,
 				9DA0A56524D4BD9C0001C827 /* Assets.xcassets */,
 				9DA0A56A24D4BD9C0001C827 /* LaunchScreen.storyboard */,
 				9DA0A56D24D4BD9C0001C827 /* Info.plist */,
