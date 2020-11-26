@@ -19,7 +19,7 @@ struct EmojiThemeChooserView: View {
             List {
                 ForEach(store.themes, id: \EmojiMemoryGame.Theme.name) { theme in
                     NavigationLink(destination: EmojiMemoryGameView(viewModel: EmojiMemoryGame())) {
-                        Text("Theme = \(theme.name)")
+                        ThemeRow(theme: theme)
                     }
                 }
 //                .onDelete { indexSet in
@@ -48,5 +48,30 @@ struct EmojiThemeChooserView: View {
 struct EmojiThemeChooserView_Previews: PreviewProvider {
     static var previews: some View {
         EmojiThemeChooserView().environmentObject(EmojiThemesStore())
+    }
+}
+
+struct ThemeRow: View {
+    
+    var theme: EmojiMemoryGame.Theme
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("\(theme.name)")
+                    .font(.title)
+                    .foregroundColor(Color(theme.color))
+                Spacer()
+                Text("\(theme.numberOfPairs) Pairs")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+            }
+            HStack {
+                Text("\(theme.emojis.joined())")
+                    .lineLimit(1)
+                    .font(.title)
+                Spacer()
+            }
+        }
     }
 }
