@@ -18,7 +18,10 @@ struct EmojiThemeChooserView: View {
         NavigationView {
             List {
                 ForEach(store.themes, id: \EmojiMemoryGame.Theme.name) { theme in
-                    NavigationLink(destination: EmojiMemoryGameView(viewModel: EmojiMemoryGame())) {
+                    NavigationLink(destination:
+                        EmojiMemoryGameView(viewModel: EmojiMemoryGame(with: theme))
+                            .navigationBarTitle(Text("\(theme.name) Game"))
+                    ) {
                         ThemeRow(theme: theme)
                     }
                 }
@@ -29,7 +32,7 @@ struct EmojiThemeChooserView: View {
 //                }
                 
             }
-            .navigationBarTitle(Text("Themes"))
+            .navigationBarTitle(Text("Memorize"))
 //            .navigationBarItems(
 //                leading: EditButton(),
 //                trailing: Button(
@@ -37,7 +40,7 @@ struct EmojiThemeChooserView: View {
 //                    label: { Image(systemName: "plus").imageScale(.large) }
 //                )
 //            )
-            .listStyle(PlainListStyle())
+//            .listStyle(PlainListStyle())
             .environment(\.editMode, $editMode)
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())

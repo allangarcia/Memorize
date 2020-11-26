@@ -114,6 +114,14 @@ class EmojiMemoryGame: ObservableObject {
 
     }
     
+    init(with theme: Theme) {
+        self.theme = theme
+        self.game = self.makeMemoryGame()
+        
+        print("JSON Theme = \(self.theme.json?.utf8 ?? "nil")")
+
+    }
+    
     // MARK: - Access to the model
     
     var cards: Array<MemoryGame<Emoji>.Card> {
