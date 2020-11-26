@@ -19,8 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let game = EmojiMemoryGame()
-        let contentView = EmojiMemoryGameView(viewModel: game)
+//        let game = EmojiMemoryGame()
+//        let contentView = EmojiMemoryGameView(viewModel: game)
+        
+        let store = EmojiThemesStore()
+        let contentView = EmojiThemeChooserView().environmentObject(store)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

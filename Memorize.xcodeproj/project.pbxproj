@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9D87365025702FFC003BFAF3 /* EmojiThemesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D87364F25702FFC003BFAF3 /* EmojiThemesStore.swift */; };
+		9D87365325704DB8003BFAF3 /* EmojiThemeChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D87365225704DB8003BFAF3 /* EmojiThemeChooserView.swift */; };
 		9D9147F52565FEFE0029DE85 /* UIColor+RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9147F42565FEFE0029DE85 /* UIColor+RGBA.swift */; };
 		9D9147F8256604270029DE85 /* Data+UTF8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9147F7256604270029DE85 /* Data+UTF8.swift */; };
 		9DA0A56024D4BD970001C827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA0A55F24D4BD970001C827 /* AppDelegate.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		9D87364F25702FFC003BFAF3 /* EmojiThemesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiThemesStore.swift; sourceTree = "<group>"; };
+		9D87365225704DB8003BFAF3 /* EmojiThemeChooserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiThemeChooserView.swift; sourceTree = "<group>"; };
 		9D9147F42565FEFE0029DE85 /* UIColor+RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGBA.swift"; sourceTree = "<group>"; };
 		9D9147F7256604270029DE85 /* Data+UTF8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+UTF8.swift"; sourceTree = "<group>"; };
 		9DA0A55C24D4BD970001C827 /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +64,7 @@
 		9D87364625702D6B003BFAF3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9D87365225704DB8003BFAF3 /* EmojiThemeChooserView.swift */,
 				9DA0A56324D4BD970001C827 /* EmojiMemoryGameView.swift */,
 			);
 			path = Views;
@@ -130,8 +133,8 @@
 				9D87364825702D8C003BFAF3 /* Model */,
 				9D87364925702DA3003BFAF3 /* ViewModels */,
 				9D87364625702D6B003BFAF3 /* Views */,
-				9D87364B25702DC4003BFAF3 /* Utils */,
 				9D87364C25702DF2003BFAF3 /* ViewModifiers */,
+				9D87364B25702DC4003BFAF3 /* Utils */,
 				9DA0A56524D4BD9C0001C827 /* Assets.xcassets */,
 				9DA0A56A24D4BD9C0001C827 /* LaunchScreen.storyboard */,
 				9DA0A56D24D4BD9C0001C827 /* Info.plist */,
@@ -233,6 +236,7 @@
 				9D9147F8256604270029DE85 /* Data+UTF8.swift in Sources */,
 				9DCEB50224D6C18200F69049 /* GridLayout.swift in Sources */,
 				9DBB449324D560EF00CF534D /* EmojiMemoryGame.swift in Sources */,
+				9D87365325704DB8003BFAF3 /* EmojiThemeChooserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

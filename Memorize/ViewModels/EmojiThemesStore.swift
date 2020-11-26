@@ -10,6 +10,10 @@ import SwiftUI
 
 class EmojiThemesStore: ObservableObject {
     
-    var themes: Array<EmojiMemoryGame.Theme>?
+    var themes: Array<EmojiMemoryGame.Theme>
+    
+    init() {
+        self.themes = EmojiMemoryGame.themes
+    }
 
 }
