@@ -139,13 +139,7 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     func newGame() {
-        // TODO: - Make external theme be importable to this game.
-        if let theme = EmojiMemoryGame.themes.randomElement() {
-            self.theme = theme
-            self.game = self.makeMemoryGame()
-            
-            print("JSON Theme = \(self.theme.json?.utf8 ?? "nil")")
-        }
+        self.game = self.makeMemoryGame()
     }
     
 }

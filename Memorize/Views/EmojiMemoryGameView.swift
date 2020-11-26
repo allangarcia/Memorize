@@ -14,11 +14,6 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text(viewModel.theme.name)
-                    .font(Font.title)
-            }
-            Divider()
             Grid(viewModel.cards) { card in
                 CardView(card: card)
                     // .aspectRatio(2/3, contentMode: .fit) -- removed due to GridLayout thing
