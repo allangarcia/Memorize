@@ -109,17 +109,11 @@ class EmojiMemoryGame: ObservableObject {
     init() {
         self.theme = EmojiMemoryGame.themes.randomElement() ?? EmojiMemoryGame.themes[0]
         self.game = self.makeMemoryGame()
-        
-        print("JSON Theme = \(self.theme.json?.utf8 ?? "nil")")
-
     }
     
     init(with theme: Theme) {
         self.theme = theme
         self.game = self.makeMemoryGame()
-        
-        print("JSON Theme = \(self.theme.json?.utf8 ?? "nil")")
-
     }
     
     // MARK: - Access to the model
