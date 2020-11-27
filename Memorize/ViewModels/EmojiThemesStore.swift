@@ -25,7 +25,7 @@ class EmojiThemesStore: ObservableObject {
         if let blob = UserDefaults.standard.object(forKey: defaultsKey) {
             self.themes = Array(fromPropertyList: blob)
         } else {
-            self.themes = EmojiMemoryGame.themes
+            self.themes = EmojiMemoryGame.defaultThemes
         }
 
         autosave = $themes.sink { themes in
@@ -34,7 +34,7 @@ class EmojiThemesStore: ObservableObject {
     }
 
     func addRandomTheme() {
-        if let theme = EmojiMemoryGame.themes.randomElement() {
+        if let theme = EmojiMemoryGame.defaultThemes.randomElement() {
             self.themes.append(theme)
         }
     }

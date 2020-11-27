@@ -20,7 +20,10 @@ class EmojiMemoryGame: ObservableObject {
     // becouse someone outside this class could create a new
     // theme for this game and set the array
     
-    struct Theme: Codable {
+    struct Theme: Codable, Identifiable {
+        
+        var id: UUID
+        
         var name: String
         var emojis: Array<Emoji>
         var color: UIColor.RGB
@@ -39,6 +42,7 @@ class EmojiMemoryGame: ObservableObject {
         }
         
         init(name: String, emojis: Array<Emoji>, color: UIColor.RGB, numberOfPairs: Int) {
+            self.id = UUID()
             self.name = name
             self.emojis = emojis
             self.color = color
@@ -48,7 +52,7 @@ class EmojiMemoryGame: ObservableObject {
     
     // Class helper methods and functions
 
-    static var themes: Array<Theme> = {
+    static var defaultThemes: Array<Theme> = {
         var themes = Array<Theme>()
         
         themes.append(Theme(name: "Animals",
@@ -107,7 +111,7 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     init() {
-        self.theme = EmojiMemoryGame.themes.randomElement() ?? EmojiMemoryGame.themes[0]
+        self.theme = EmojiMemoryGame.defaultThemes.randomElement() ?? EmojiMemoryGame.defaultThemes[0]
         self.game = self.makeMemoryGame()
     }
     

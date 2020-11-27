@@ -17,7 +17,7 @@ struct EmojiThemeChooserView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(store.themes, id: \EmojiMemoryGame.Theme.name) { theme in
+                ForEach(store.themes) { theme in
                     NavigationLink(destination:
                         EmojiMemoryGameView(viewModel: EmojiMemoryGame(with: theme))
                             .navigationBarTitle(Text("\(theme.name)"))
