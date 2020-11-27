@@ -25,22 +25,20 @@ struct EmojiThemeChooserView: View {
                         ThemeRow(theme: theme)
                     }
                 }
-//                .onDelete { indexSet in
-//                    indexSet.map { self.store.documents[$0] }.forEach { document in
-//                        self.store.removeDocument(document)
-//                    }
-//                }
+                .onDelete { indexSet in
+                    indexSet.forEach { self.store.themes.remove(at: $0) }
+                }
                 
             }
             .navigationBarTitle(Text("Memorize"))
-//            .navigationBarItems(
-//                leading: EditButton(),
-//                trailing: Button(
-//                    action: { self.store.addDocument() },
-//                    label: { Image(systemName: "plus").imageScale(.large) }
-//                )
-//            )
-//            .listStyle(PlainListStyle())
+            .navigationBarItems(
+                leading: EditButton(),
+                trailing: Button(
+                    action: { self.store.addRandomTheme() },
+                    label: { Image(systemName: "plus").imageScale(.large) }
+                )
+            )
+            .listStyle(PlainListStyle())
             .environment(\.editMode, $editMode)
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())

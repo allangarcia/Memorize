@@ -33,7 +33,11 @@ class EmojiThemesStore: ObservableObject {
         }
     }
 
-
+    func addRandomTheme() {
+        if let theme = EmojiMemoryGame.themes.randomElement() {
+            self.themes.append(theme)
+        }
+    }
 
 }
 
