@@ -22,13 +22,12 @@ struct EmojiThemeChooserView: View {
                         EmojiMemoryGameView(viewModel: EmojiMemoryGame(with: theme))
                             .navigationBarTitle(Text("\(theme.name)"))
                     ) {
-                        ThemeRow(theme: theme)
+                        ThemeRow(theme: theme, editMode: $editMode)
                     }
                 }
                 .onDelete { indexSet in
                     indexSet.forEach { self.store.themes.remove(at: $0) }
                 }
-                
             }
             .navigationBarTitle(Text("Memorize"))
             .navigationBarItems(
@@ -42,37 +41,54 @@ struct EmojiThemeChooserView: View {
             .environment(\.editMode, $editMode)
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
-        
-    }
-}
-
-struct EmojiThemeChooserView_Previews: PreviewProvider {
-    static var previews: some View {
-        EmojiThemeChooserView().environmentObject(EmojiThemesStore())
     }
 }
 
 struct ThemeRow: View {
     
+    @EnvironmentObject var store: EmojiThemesStore
+    
     var theme: EmojiMemoryGame.Theme
+    @Binding var editMode: EditMode
+    
+    @State private var isEditingTheme: Bool = false
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("\(theme.name)")
-                    .font(.title)
-                    .foregroundColor(Color(theme.color))
-                Spacer()
-                Text("\(theme.numberOfPairs) Pairs")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
+        HStack {
+            Group {
+                if editMode == .active {
+                    Image(systemName: "pencil.circle.fill")
+                        .imageScale(.large)
+                        .foregroundColor(.yellow)
+                        .padding(.trailing, 8)
+                        .onTapGesture {
+                            self.isEditingTheme = true
+                        }
+                }
             }
-            HStack {
-                Text("\(theme.emojis.joined())")
-                    .lineLimit(1)
-                    .font(.title)
-                Spacer()
+            VStack {
+                HStack {
+                    Text("\(theme.name)")
+                        .font(.title)
+                        .foregroundColor(Color(theme.color))
+                    Spacer()
+                    Text("\(theme.numberOfPairs) Pairs")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                }
+                HStack {
+                    Text("\(theme.emojis.joined())")
+                        .lineLimit(1)
+                        .font(.title)
+                    Spacer()
+                }
             }
         }
+        .sheet(isPresented: self.$isEditingTheme, onDismiss: {
+            self.editMode = .inactive
+        }, content: {
+            EmojiThemeEditorView(theme: theme, isShowing: $isEditingTheme)
+                .environmentObject(self.store)
+        })
     }
 }
