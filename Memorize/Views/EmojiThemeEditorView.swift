@@ -48,17 +48,26 @@ struct EmojiThemeEditorView: View {
                     TextField("Theme Name", text: $themeName)
                 }
                 Section(header: Text("Add Emoji")) {
-                    TextField("Add Emoji", text: $emojisToAdd)
+                    HStack {
+                        TextField("Add Emoji", text: $emojisToAdd)
+                        Button {
+                            self.addEmojisLocal()
+                        } label: {
+                            Text("Add")
+                        }
+                    }
                 }
                 Section(
                     header: Text("Tap to remove an emoji from the theme")) {
                     Grid(self.theme.emojis.map { String($0) }, id: \.self ) { emoji in
                         Text(emoji).font(Font.system(size: 40))
                             .onTapGesture {
-                                if let index = self.theme.emojis.firstIndex(of: emoji) {
-                                    self.theme.emojis.remove(at: index)
-                                    if self.numberOfPairs > self.theme.emojis.count {
-                                        self.numberOfPairs = self.theme.emojis.count
+                                if self.theme.emojis.count > 2 {
+                                    if let index = self.theme.emojis.firstIndex(of: emoji) {
+                                        self.theme.emojis.remove(at: index)
+                                        if self.numberOfPairs > self.theme.emojis.count {
+                                            self.numberOfPairs = self.theme.emojis.count
+                                        }
                                     }
                                 }
                             }
@@ -79,11 +88,7 @@ struct EmojiThemeEditorView: View {
         }
     }
     
-    private func save() {
-        
-        // save the name
-        self.theme.name = self.themeName
-        
+    private func addEmojisLocal() {
         // save emojis added
         self.emojisToAdd.forEach { emoji in
             let emojiString = String(emoji)
@@ -93,6 +98,12 @@ struct EmojiThemeEditorView: View {
             self.theme.emojis.append(emojiString)
         }
         self.emojisToAdd = ""
+    }
+    
+    private func save() {
+        
+        // save the name
+        self.theme.name = self.themeName
         
         // save the numbers of pairs of the game
         self.theme.numberOfPairs = self.numberOfPairs
