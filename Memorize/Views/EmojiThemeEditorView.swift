@@ -17,6 +17,7 @@ struct EmojiThemeEditorView: View {
     
     @State private var themeName: String = ""
     @State private var emojisToAdd: String = ""
+    @State private var numberOfPairs: Int = -1
     
     var body: some View {
         VStack(spacing: 0) {
@@ -56,28 +57,34 @@ struct EmojiThemeEditorView: View {
                             .onTapGesture {
                                 if let index = self.theme.emojis.firstIndex(of: emoji) {
                                     self.theme.emojis.remove(at: index)
+                                    if self.numberOfPairs > self.theme.emojis.count {
+                                        self.numberOfPairs = self.theme.emojis.count
+                                    }
                                 }
                             }
                     }
                     .frame(height: self.height)
                 }
-                Section {
-                    Text("Number of pairs")
+                Section(header: Text("Number of pairs of cards")) {
+                    Stepper("\(self.numberOfPairs) Pairs", value: self.$numberOfPairs, in: 2...self.theme.emojis.count)
                 }
-                Section {
-                    Text("Color of the theme")
-                }
+//                Section {
+//                    Text("Color of the theme")
+//                }
             }
         }
         .onAppear {
             self.themeName = self.theme.name
-            
+            self.numberOfPairs = self.theme.numberOfPairs
         }
     }
     
     private func save() {
+        
+        // save the name
         self.theme.name = self.themeName
         
+        // save emojis added
         self.emojisToAdd.forEach { emoji in
             let emojiString = String(emoji)
             if let index = self.theme.emojis.firstIndex(of: emojiString) {
@@ -86,6 +93,9 @@ struct EmojiThemeEditorView: View {
             self.theme.emojis.append(emojiString)
         }
         self.emojisToAdd = ""
+        
+        // save the numbers of pairs of the game
+        self.theme.numberOfPairs = self.numberOfPairs
 
         // find in store the theme being edited
         if let index = self.store.themes.firstIndex(matching: self.theme) {
